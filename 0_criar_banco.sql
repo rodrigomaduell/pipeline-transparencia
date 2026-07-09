@@ -62,7 +62,7 @@ CREATE TABLE raw_pagamento (
     nome_orgao_pagador                VARCHAR(100),
     cod_ug_pagadora                   VARCHAR(20),
     nome_ug_pagadora                  VARCHAR(100),
-    tipo_pagamento                    VARCHAR(20),
+    tipo_pagamento                    VARCHAR(100),
     valor                             VARCHAR(20)
 )
 ENGINE=InnoDB
