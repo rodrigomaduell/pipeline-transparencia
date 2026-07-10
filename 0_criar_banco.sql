@@ -27,7 +27,7 @@ CREATE TABLE raw_viagem (
     id_viagem                          VARCHAR(20),
     num_proposta                       VARCHAR(20),
     situacao                           VARCHAR(50),
-    viagem_urgente                     VARCHAR(5),
+    viagem_urgente                     VARCHAR(20),
     justificativa_urgencia             VARCHAR(1000),
     cod_orgao_superior                 VARCHAR(20),
     nome_orgao_superior                VARCHAR(100),
@@ -55,12 +55,12 @@ COLLATE utf8mb4_general_ci;
 
 CREATE TABLE raw_pagamento (
     id_viagem                         VARCHAR(20),
-    num_proposta                      VARCHAR(20),
-    cod_orgao_superior                VARCHAR(20),
+    num_proposta                      VARCHAR(40),
+    cod_orgao_superior                VARCHAR(40),
     nome_orgao_superior               VARCHAR(100),
-    cod_orgao_pagador                 VARCHAR(20),
+    cod_orgao_pagador                 VARCHAR(40),
     nome_orgao_pagador                VARCHAR(100),
-    cod_ug_pagadora                   VARCHAR(20),
+    cod_ug_pagadora                   VARCHAR(40),
     nome_ug_pagadora                  VARCHAR(100),
     tipo_pagamento                    VARCHAR(100),
     valor                             VARCHAR(20)
@@ -88,7 +88,7 @@ CREATE TABLE raw_passagem (
     valor_passagem          VARCHAR(20),
     taxa_servico            VARCHAR(20),
     data_emissao            VARCHAR(20),
-    hora_emissao            VARCHAR(10)
+    hora_emissao            VARCHAR(20)
 )
 ENGINE=InnoDB
 CHARACTER SET utf8mb4
@@ -96,8 +96,8 @@ COLLATE utf8mb4_general_ci;
 
 CREATE TABLE raw_trecho (
     id_viagem               VARCHAR(20),
-    num_proposta            VARCHAR(20),
-    sequencia_trecho        VARCHAR(10),
+    num_proposta            VARCHAR(40),
+    sequencia_trecho        VARCHAR(60),
     origem_data             VARCHAR(20),
     origem_pais             VARCHAR(60),
     origem_uf               VARCHAR(40),
@@ -122,11 +122,11 @@ COLLATE utf8mb4_general_ci;
 -- TABELA PAI - silver_viagem
 CREATE TABLE silver_viagem (
     id_viagem                       VARCHAR(20) PRIMARY KEY,
-    num_proposta                    VARCHAR(20),
+    num_proposta                    VARCHAR(40),
     situacao                        VARCHAR(50),
-    viagem_urgente                  VARCHAR(5),
-    cod_org_superior                  VARCHAR(20),
-    nome_org_superior                 VARCHAR(100) NOT NULL,
+    viagem_urgente                  VARCHAR(40),
+    cod_orgao_superior                  VARCHAR(20),
+    nome_orgao_superior                 VARCHAR(100) NOT NULL,
     nome_viajante                    VARCHAR(255),
     cargo                            VARCHAR(255),
     data_inicio                       DATE,
@@ -148,10 +148,10 @@ CREATE TABLE silver_viagem (
     CREATE TABLE silver_pagamento (
         id_pagamento                   INT               PRIMARY KEY AUTO_INCREMENT,
         id_viagem                      VARCHAR(20)       NOT NULL,
-        num_proposta                   VARCHAR(20),
+        num_proposta                   VARCHAR(40),
         nome_orgao_pagador             VARCHAR(255),
         nome_ug_pagadora               VARCHAR(255),
-        tipo_pagamento                 VARCHAR(20),
+        tipo_pagamento                 VARCHAR(100),
         valor                          DECIMAL(10,2)     CHECK (valor >= 0),
         FOREIGN KEY (id_viagem) REFERENCES silver_viagem(id_viagem)
     )
@@ -183,7 +183,7 @@ CREATE TABLE silver_viagem (
     CREATE TABLE silver_trecho (
         id_trecho                      INT               PRIMARY KEY AUTO_INCREMENT,
         id_viagem                      VARCHAR(20)       NOT NULL,
-        sequencia_trecho               VARCHAR(10)       NOT NULL,
+        sequencia_trecho               VARCHAR(60)       NOT NULL,
         origem_data                    DATE,
         origem_uf                      VARCHAR(40),
         origem_cidade                  VARCHAR(80),
