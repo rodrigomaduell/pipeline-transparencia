@@ -1,7 +1,8 @@
 venv/
 .env
 .zip*
-.csvdata/
+.csv
+data/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
