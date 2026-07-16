@@ -16,19 +16,19 @@ O projeto visa transformar dados brutos em métricas claras para tomada de decis
 
 Este projeto segue a Arquitetura Medallion com três camadas progressivas de qualidade: 
 
-RAW >>> SILVER >>> GOLD
+Raw → Silver → Gold
 
-🥉 Raw: Cópia fiel dos CSVs, todas as colunas VARCHAR
+**Raw**: Cópia fiel dos CSVs, todas as colunas VARCHAR
 Tabelas: raw_viagem, raw_pagamento, raw_passagem, raw_trecho
 
-🥈 Silver: Dados tipados, limpos e com integridade referencial 
+**Silver**: Dados tipados, limpos e com integridade referencial 
 Tabelas: silver_viagem, silver_pagamento, silver_passagem, silver_trecho
 
-🥇 Gold: Agregações e métricas prontas para análise
+**Gold**: Agregações e métricas prontas para análise
 Tabelas: gold_resumo_orgaos + views analíticas
 
 
-## TÉCNOLOGIAS UTILIZADAS
+## TECNOLOGIAS UTILIZADAS
 
 - **Python 3.12** — linguagem principal
 - **Pandas** — manipulação e transformação de dados
@@ -41,18 +41,20 @@ Tabelas: gold_resumo_orgaos + views analíticas
 
 ## ESTRUTURA DO PROJETO
 
+'''
 pipeline-transparencia/
-├-- config.py            # Parâmetros e leitura do .env
-├-- banco.py             # Conexão e funções utilitárias do MySQL
-├-- .env.example         # Modelo de credenciais (copie para .env)
-├-- .gitignore           # Arquivos ignorados pelo Git
-├-- requirements.txt     # Dependências do projeto
-|-- README.md            # Descrição do projeto / Instruções
-├-- 0_criar_banco.sql    # Criação do banco e das 8 tabelas
-├-- 1_extrair.py         # Download + carga na camada Raw
-├-- 2_transformar.py     # Limpeza e tipagem (Raw >>> Silver)
-└-- 3_analise.ipynb      # Camada Gold + perguntas de negócio + gráficos
-
+├── config.py
+├── banco.py
+├── .env.example
+├── .gitignore
+├── requirements.txt
+├── README.md
+├── 0_criar_banco.sql
+├── 1_extrair.py
+├── 2_transformar.py
+├── 3_analise.ipynb
+└── images/
+'''
 
 ## COMO EXECUTAR
 
@@ -94,61 +96,19 @@ python 2_transformar.py
 jupyter notebook 3_analise.ipynb
 ```
 
-## PERGUNTAS DE NEGÓCIO
-
-1. Quais os 5 órgãos com maior custo total de viagens?
-
-
-
-2. Quais os 3 destinos com maior custo médio por viagem?
-3. Qual a viagem de maior duração e seu custo total?
-4. Qual o tipo de pagamento com maior valor médio?
-5. Qual o meio de transporte mais usado nos trechos?
-6. Qual a UF de destino que aparece em mais trechos?
-7. Qual órgão pagou mais no total?
-
-> Os resultados, gráficos e insights estão detalhados no notebook '3_analise.ipynb'.
-
-
-## INSIGHTS
-
-## 💡 Insights
-
-### Órgãos e Gastos
-- O **Ministério da Justiça e Segurança Pública** lidera com folga o ranking de gastos, com mais de **R$ 486 milhões** em viagens — mais que o dobro do segundo colocado. Isso reflete a natureza operacional do órgão, com agentes e servidores em campo constantemente.
-
-### Destinos
-- Os destinos com maior custo médio por viagem são cidades de pequeno porte no interior de São Paulo e Bahia, sugerindo que viagens para localidades de difícil acesso ou com menor infraestrutura tendem a ser mais caras.
-- Optou-se por analisar destinos via tabela `silver_trecho` com JOIN, pois o campo `destinos` da `silver_viagem` agrega múltiplas cidades em uma única string, impossibilitando análise granular por destino individual.
-
-### Duração
-- A viagem de maior duração registrou **383 dias** com custo total de **R$ 0,00** — um caso atípico que indica possível erro de cadastro ou viagem sem reembolso registrado.
-- A duração média geral das viagens é significativamente menor, o que confirma que esse registro é um outlier.
-
-### Pagamentos
-- **Diárias** representam o tipo de pagamento com maior valor médio (**R$ 2.078**), seguido de passagens (**R$ 1.878**).
-- A **RESTITUIÇÃO** aparece com valor médio baixo (**R$ 245**), indicando devoluções pontuais de valores pagos a mais.
-
-### Transporte
-- **Veículo Oficial** é o meio de transporte mais usado com **50,6%** dos trechos — mais que todos os outros meios combinados.
-- O transporte **Aéreo** representa **30,5%**, sendo predominante em viagens de maior distância e custo.
-
-### Destinos por UF
-- **São Paulo** e **Distrito Federal** lideram como UFs de destino, concentrando juntos quase **22%** de todos os trechos — reflexo da concentração de sedes corporativas e do governo federal nessas localidades.
-
-## Perguntas de Negócio Respondidas
+## PERGUNTAS DE NEGÓCIO RESPONDIDAS
 
 ---
 
 ### 1. Os 5 órgãos com maior custo total?
 
-| Órgão|---------------------------------------------------------------|Custo Total |
+| Órgão                                                   |Custo Total |
 
-| Ministério da Justiça e Segurança Pública |--------------------------| R$ 486.933.121,65 |
-| Ministério da Defesa |-----------------------------------------------| R$ 156.070.304,49 |
-| Ministério da Educação |---------------------------------------------| R$ 111.291.349,34 |
-| Ministério do Meio Ambiente e Mudança do Clima |---------------------| R$ 49.697.710,16 |
-| Ministério da Previdência Social |-----------------------------------| R$ 40.417.309,06 |
+| Ministério da Justiça e Segurança Pública               | R$ 486.933.121,65 |
+| Ministério da Defesa                                    | R$ 156.070.304,49 |
+| Ministério da Educação                                  | R$ 111.291.349,34 |
+| Ministério do Meio Ambiente e Mudança do Clima          | R$ 49.697.710,16 |
+| Ministério da Previdência Social                        | R$ 40.417.309,06 |
 
 ![Gráfico P1](images/grafico_p1_orgaos.png)
 
@@ -156,11 +116,11 @@ jupyter notebook 3_analise.ipynb
 
 ### 2. Os 3 destinos com maior custo médio por viagem?
 
-| Destino |--------| Total Viagens |-----------------| Custo Médio |
+| Destino          | Total Viagens | Custo Médio |
 
-| Tejupá/SP |------|             1 |-----------------| R$ 115.175,00 |
-| Chavantes/SP |---|             1 |-----------------| R$ 114.557,01 |
-| Teolândia/BA |---|             1 |-----------------| R$ 109.322,50 |
+| Tejupá/SP        |             1 | R$ 115.175,00 |
+| Chavantes/SP     |             1 | R$ 114.557,01 |
+| Teolândia/BA     |             1 | R$ 109.322,50 |
 
 ![Gráfico P2](images/grafico_p2_destinos.png)
 
@@ -238,12 +198,18 @@ jupyter notebook 3_analise.ipynb
 
 ---
 
-## 💡 Insights
+## INSIGHTS
 
 - O **Ministério da Justiça e Segurança Pública** lidera tanto em custo total quanto em pagamentos, com mais de **R$ 486 milhões** — reflexo da natureza operacional do órgão com agentes em campo continuamente.
+
 - Os destinos com maior custo médio são cidades de pequeno porte no interior de SP e BA, sugerindo que localidades de difícil acesso geram viagens significativamente mais caras.
+
 - A viagem de maior duração registrou **383 dias** com custo de **R$ 0,00** — um outlier que indica possível erro de cadastro ou viagem sem reembolso registrado.
+
 - **Diárias** representam o maior valor médio por pagamento (R$ 2.078), superando passagens (R$ 1.878), o que sugere viagens longas com pernoite como padrão predominante.
+
 - **Veículo Oficial** é o meio de transporte mais usado com **50,62%** dos trechos, indicando que a maior parte dos deslocamentos é de curta distância dentro do mesmo estado ou região.
+
 - **São Paulo** e **Distrito Federal** concentram quase **22% de todos os trechos**, refletindo a concentração de sedes corporativas e do governo federal nessas localidades.
-- Para a análise de destinos optou-se por utilizar a tabela `silver_trecho` via JOIN com `silver_viagem`, pois o campo `destinos` da tabela de viagens agrega múltiplas cidades em uma única string, impossibilitando análise granular por destino individual.
+
+- Na resposta da pergunta 2, para a análise de destinos optou-se por utilizar a tabela `silver_trecho` via JOIN com `silver_viagem`, pois o campo `destinos` da tabela de viagens agrega múltiplas cidades em uma única string, impossibilitando análise granular por destino individual. Poderia ser feito pelos valores agregados, porém não considero a melhor escolha, pois seria feito um ranking com base na combinações contidas no campo, enquanto que o destino de fato de forma individual está contido na tabela `silver_trecho`.
