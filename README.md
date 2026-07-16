@@ -8,9 +8,9 @@
 
 ## DESCRIÇÃO DO PROJETO:
 
-Pipeline de dados criado do zero para extrair, limpar e analisar dados públicos de 'Viagens a Serviço' retirados do Portal da Transparência do Governo Federal.
+Pipeline de dados criado do zero para extrair, limpar e analisar dados públicos de Viagens a Serviço retirados do Portal da Transparência do Governo Federal.
 
-O projeto visa transformar dados brutos em métricas claras para tomada de decisão.
+O projeto visa transformar dados brutos em métricas claras para tomada de decisão, respondendo perguntas reais sobre gastos públicos com viagens de servidores federais.
 
 ### Arquitetura Medallion
 
@@ -37,6 +37,10 @@ Tabelas: gold_resumo_orgaos + views analíticas
 - **Matplotlib / Seaborn** — visualização de dados
 - **Jupyter Notebook** — análise exploratória e camada Gold
 - **Git / GitHub** — versionamento do projeto
+- **SQLAlchemy** — conexão Python + MySQL no notebook
+- **python-dotenv** — leitura segura de credenciais do `.env`
+- **Requests** — download automático do arquivo do Google Drive
+- **ZipFile** — descompactação do arquivo baixado
 
 
 ## ESTRUTURA DO PROJETO
@@ -212,4 +216,8 @@ jupyter notebook 3_analise.ipynb
 
 - **São Paulo** e **Distrito Federal** concentram quase **22% de todos os trechos**, refletindo a concentração de sedes corporativas e do governo federal nessas localidades.
 
-- Na resposta da pergunta 2, para a análise de destinos optou-se por utilizar a tabela `silver_trecho` via JOIN com `silver_viagem`, pois o campo `destinos` da tabela de viagens agrega múltiplas cidades em uma única string, impossibilitando análise granular por destino individual. Poderia ser feito pelos valores agregados, porém não considero a melhor escolha, pois seria feito um ranking com base na combinações contidas no campo, enquanto que o destino de fato de forma individual está contido na tabela `silver_trecho`.
+## OBSERVAÇÕES
+
+- > Na resposta da pergunta 2, para a análise de destinos foi utilizada a tabela `silver_trecho` via JOIN com `silver_viagem`, pois o campo `destinos` da tabela de viagens agrega múltiplas cidades em uma única string, impossibilitando análise granular por destino individual. Poderia ser feito pelos valores agregados, porém não considero a melhor escolha, pois seria feito um ranking com base na combinações contidas no campo, enquanto que o destino de fato de forma individual está contido na tabela `silver_trecho`.
+
+- > O arquivo `.env.example` serve como modelo — ele mostra quais variáveis precisam ser configuradas sem expor credenciais reais. O `.env` com os valores reais nunca vai para o GitHub.
