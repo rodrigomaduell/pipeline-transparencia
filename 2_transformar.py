@@ -2,6 +2,9 @@
 Limpeza e Tipagem dos dados(Raw >>> Silver)
 Converte tipos, calcula colunas e respeita a integridade referêncial"""
 
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))  # Adiciona o diretório src ao sys.path
 import csv
 from datetime import datetime
 import banco

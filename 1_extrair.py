@@ -5,6 +5,9 @@ descompacta e extrai os 4 arquivos .csv,
 faz a carga nas tabelas Raw correspondentes no MySQL.  
 """
 
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))  # Adiciona o diretório src ao sys.path
 import os
 import zipfile
 import csv
