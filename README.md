@@ -1,9 +1,10 @@
-## AUTOR: Rodrigo Maduell Fonseca
-## TURMA: Análise de Dados com Python - T2 - 2026
-## INSTITUIÇÃO: SCTEC/SENAI-SC 
-
-## NOME PROJETO: Pipeline de dados - viagens a serviço 
-## ORIGEM DADOS: Portal da Transparência do Governo Federal
+| | |
+|---|---|
+| **Autor** | Rodrigo Maduell Fonseca |
+| **Turma** | Análise de Dados com Python - T2 - 2026 |
+| **Instituição** | SCTEC/SENAI-SC |
+| **Projeto** | Pipeline de dados - Viagens a Serviço |
+| **Origem dos dados** | Portal da Transparência do Governo Federal |
 
 
 ## DESCRIÇÃO DO PROJETO:
@@ -47,17 +48,20 @@ Tabelas: gold_resumo_orgaos + views analíticas
 
 ```
 pipeline-transparencia/
-├── config.py
-├── banco.py
-├── .env.example
-├── .gitignore
-├── requirements.txt
-├── README.md
-├── 0_criar_banco.sql
-├── 1_extrair.py
-├── 2_transformar.py
-├── 3_analise.ipynb
-└── images/
+├── notebooks/
+│   └── 3_analise.ipynb      # Camada Gold + perguntas de negócio + gráficos
+├── reports/
+│   └── figures/             # Gráficos exportados
+├── src/
+│   ├── banco.py             # Conexão e funções utilitárias do MySQL
+│   └── config.py            # Parâmetros e leitura do .env
+├── .env.example             # Modelo de credenciais (copie para .env)
+├── .gitignore               # Arquivos ignorados pelo Git
+├── requirements.txt         # Dependências do projeto
+├── README.md                # Documentação do projeto
+├── 0_criar_banco.sql        # Criação do banco e das 8 tabelas
+├── 1_extrair.py             # Download + carga na camada Raw
+└── 2_transformar.py         # Limpeza e tipagem (Raw → Silver)
 ```
 
 ## COMO EXECUTAR
@@ -114,7 +118,7 @@ jupyter notebook 3_analise.ipynb
 | Ministério do Meio Ambiente e Mudança do Clima | R$ 49.697.710,16 |
 | Ministério da Previdência Social | R$ 40.417.309,06 |
 
-![Gráfico P1](images/grafico_p1_orgaos.png)
+![Gráfico P1](reports/figures/grafico_p1_orgaos.png)
 
 ---
 
@@ -126,7 +130,7 @@ jupyter notebook 3_analise.ipynb
 | Chavantes/SP | 1 | R$ 114.557,01 |
 | Teolândia/BA | 1 | R$ 109.322,50 |
 
-![Gráfico P2](images/grafico_p2_destinos.png)
+![Gráfico P2](reports/figures/grafico_p2_destinos.png)
 
 ---
 
@@ -141,8 +145,8 @@ jupyter notebook 3_analise.ipynb
 | Duração | 383 dias |
 | Custo Total | R$ 0,00 |
 
-![Gráfico P3](images/grafico_p3_1_maior_duracao.png)
-![Gráfico P3](images/grafico_p3_2_maior_duracao.png)
+![Gráfico P3](reports/figures/grafico_p3_1_maior_duracao.png)
+![Gráfico P3](reports/figures/grafico_p3_2_maior_duracao.png)
 
 ---
 
@@ -155,7 +159,7 @@ jupyter notebook 3_analise.ipynb
 | Serviço correlato: seguro | 4.894 | R$ 447,51 | R$ 2.190.136,71 |
 | Restituição | 11.574 | R$ 245,70 | R$ 2.843.762,01 |
 
-![Gráfico P4](images/grafico_p4_pagamento.png)
+![Gráfico P4](reports/figures/grafico_p4_pagamento.png)
 
 ---
 
@@ -172,7 +176,7 @@ jupyter notebook 3_analise.ipynb
 | Ferroviário | 874 | 0,11% |
 | Marítimo | 481 | 0,06% |
 
-![Gráfico P5](images/grafico_p5_transporte.png)
+![Gráfico P5](reports/figures/grafico_p5_transporte.png)
 
 ---
 
@@ -186,7 +190,7 @@ jupyter notebook 3_analise.ipynb
 | Rio de Janeiro | 44.197 | 5,90% |
 | Paraná | 42.603 | 5,69% |
 
-![Gráfico P6](images/grafico_p6_uf_destino.png)
+![Gráfico P6](reports/figures/grafico_p6_uf_destino.png)
 
 ---
 
@@ -196,7 +200,7 @@ jupyter notebook 3_analise.ipynb
 |---|---|---|
 | Ministério da Justiça e Segurança Pública | 75.633 | R$ 488.831.110,61 |
 
-![Gráfico P7](images/grafico_p7_orgao_pagamento.png)
+![Gráfico P7](reports/figures/grafico_p7_orgao_pagamento.png)
 
 ---
 
